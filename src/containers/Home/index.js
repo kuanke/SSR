@@ -14,7 +14,7 @@ function Home(props) {
 	const getList = () => {
 		const {list} = props;
 		return list.map(item => <div key={item.id}>{item.title}</div>)
-	}
+	};
 
 	return (
 		<div>
