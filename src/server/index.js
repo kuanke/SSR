@@ -15,9 +15,10 @@ app.use('/api', proxy('http://47.95.113.63', {
 }));
 
 app.get('*', function (req, res) {
-	const store = getStore();
+	const store = getStore(req);
 	const matchedRoutes = matchRoutes(routes, req.path);
 
+	// console.log(matchedRoutes);
 	const promises = [];
 	matchedRoutes.forEach(item => {
 		if (item.route.loadData) {
@@ -25,7 +26,6 @@ app.get('*', function (req, res) {
 		}
 	});
 	Promise.all(promises).then(() => {
-		console.log(store);
         res.send(render(store, routes, req));
 	});
 
