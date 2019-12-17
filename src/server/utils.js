@@ -1,22 +1,16 @@
 import React from 'react';
-import {StaticRouter} from 'react-router-dom';
+import {StaticRouter, Route} from 'react-router-dom';
 import {renderToString} from 'react-dom/server';
-import Routes from '../Routes'
-import {createStore, applyMiddleware} from 'redux';
 import {Provider} from 'react-redux';
-import thunk from 'redux-thunk';
 
-export const render = (req) => {
-	const reducer = (state = {name: 'zhengll'}, action) => {
-		return state;
-	}
 
-	const store = createStore(reducer, applyMiddleware(thunk))
-
+export const render = (store, routes, req) => {
 	const content = renderToString((
 		<Provider store={store}>
 			<StaticRouter location={req.path} context={{}}>
-				{Routes}
+				{routes.map(route => (
+					<Route {...route}/>
+				))}
 			</StaticRouter>
 		</Provider>
 	));
@@ -27,6 +21,11 @@ export const render = (req) => {
 			</head>
 			<body>
 				<div id="root">${content}</div>
+				<script>
+					window.context = {
+					    state: ${JSON.stringify(store.getState())}
+					}
+				</script>
 				<script src='/index.js'></script>
 			</body>
 		</html>
