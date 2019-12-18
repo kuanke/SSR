@@ -2,12 +2,13 @@ import React, { Fragment, Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { actions } from './store/'
+import styles from './style.css'
 
 class Header extends Component {
 	render() {
 		const { login, handleLogin, handleLogout } = this.props;
 		return (
-			<div>
+			<div className={styles.bg}>
 				<Link to='/home'>首页</Link>
 				<br />
 				{
