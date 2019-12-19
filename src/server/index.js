@@ -32,8 +32,9 @@ app.get('*', function (req, res) {
 	Promise.all(promises).then(() => {
         // 得到最后一项路由的key值，事先在路由中写入key：404
         const lastRouteKey = matchedRoutes[matchedRoutes.length - 1].route.key;
-        let context = {};
+        let context = {css: []};
         const html = render(store, routes, req, context);
+        console.log(context.css + '----------')
 		// 进入/translation页面，碰到<Redirect />，StaticRouter和renderRoutes结合时，如果发现有重定向标签，会
 		// 向context对象中注入重定向的信息。
         if (context.action === 'REPLACE') {

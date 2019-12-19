@@ -2,9 +2,19 @@ import React, { Fragment, Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { actions } from './store/'
-import styles from './style.css'
+import styles from './styles.css'
 
 class Header extends Component {
+
+    componentWillMount() {
+    	// staticContext 为何一直都是undefined ??
+		// 解答：staticContext 需要从App组件传进来
+        if (this.props.staticContext) {
+        	console.log('Header staticContext');
+            this.props.staticContext.css.push(styles._getCss());
+        }
+    }
+
 	render() {
 		const { login, handleLogin, handleLogout } = this.props;
 		return (
