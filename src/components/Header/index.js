@@ -3,17 +3,9 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { actions } from './store/'
 import styles from './styles.css'
+import withStyle from '../../withStyle'
 
 class Header extends Component {
-
-    componentWillMount() {
-    	// staticContext 为何一直都是undefined ??
-		// 解答：staticContext 需要从App组件传进来
-        if (this.props.staticContext) {
-        	console.log('Header staticContext');
-            this.props.staticContext.css.push(styles._getCss());
-        }
-    }
 
 	render() {
 		const { login, handleLogin, handleLogout } = this.props;
@@ -44,7 +36,9 @@ const mapDispatch = (dispatch) => ({
 	handleLogout() {
 		dispatch(actions.logout())
 	}
-})
+});
 
-export default connect(mapState, mapDispatch)(Header);
+const wrappedHeader = connect(mapState, mapDispatch)(withStyle(Header, styles));
+
+export default wrappedHeader;
 
