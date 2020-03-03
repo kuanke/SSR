@@ -1,2 +1,4 @@
 # SSR
-服务端渲染的基础框架
+基于react+webpack的服务端渲染的基础框架
+运行
+npm run dev
